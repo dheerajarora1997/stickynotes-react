@@ -1,0 +1,33 @@
+textarea {
+  resize: none;
+  padding: 33px 10px 10px !important;
+}
+
+[class*="material-icons"] {
+  font-size: 16px !important;
+  width: 15px;
+  height: 15px;
+}
+
+.pin-btn {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 0 0 10px 0;
+  z-index: 1;
+}
+
+.sticky-options {
+  position: absolute;
+  right: 0;
+  visibility: hidden;
+}
+
+.sticky-card {
+  &:hover {
+    .sticky-options {
+      visibility: visible;
+    }
+
+  }
+}
