@@ -28,6 +28,8 @@ textarea {
     .sticky-options {
       visibility: visible;
     }
-
+  }
+  &-empty{
+    border-style: dashed !important;
   }
 }
