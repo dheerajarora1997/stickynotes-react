@@ -14,7 +14,7 @@ export default function Landing() {
 
   const addStickyNote = (e) => {
     setStickyNotesCount(parseInt(stickyNotesCount) + 1);
-    localStorage.setItem(`stickyNote${stickyNotesCount}`, ' ');
+    localStorage.setItem(`stickyNote${(parseInt(stickyNotesCount) + 1)}`, '');
   }
 
   if (stickyNotesCount) {
@@ -73,9 +73,9 @@ export default function Landing() {
             {stickyNotesCount}
             {stickyNotesCount >= 9 ?
               <div className="col-12">
-                <div className="alert alert-${themeMode} alert-dismissible fade show" role="alert">
-                  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                  <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div className={`alert alert-${themeMode} alert-dismissible fade show`} role="alert">
+                  <strong>Note : </strong> Only 10 Sticky Notes allowed.
+                  <span className="float-end cursor-pointer" data-bs-dismiss="alert">Close</span>
                 </div>
               </div> :
               <div className={`col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-4`}>
