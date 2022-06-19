@@ -56,13 +56,13 @@ export default function Landing() {
             </div>
             <div className="col-12 col-sm-6 text-end">
               <button className="p-2 ms-1 d-inline-block btn btn-primary" onClick={() => { toggleMode('primary') }}></button>
+              <button className="p-2 ms-1 d-inline-block btn btn-secondary" onClick={() => { toggleMode('secondary') }}></button>
               <button className="p-2 ms-1 d-inline-block btn btn-danger" onClick={() => { toggleMode('danger') }}></button>
               <button className="p-2 ms-1 d-inline-block btn btn-warning" onClick={() => { toggleMode('warning') }}></button>
               <button className="p-2 ms-1 d-inline-block btn btn-success" onClick={() => { toggleMode('success') }}></button>
               <button className="p-2 ms-1 d-inline-block btn btn-info" onClick={() => { toggleMode('info') }}></button>
-              {/* <button className="p-2 ms-1 d-inline-block btn btn-light" onClick={() => { toggleMode('light') }}></button> */}
+              <button className="p-2 ms-1 d-inline-block btn btn-light" onClick={() => { toggleMode('light') }}></button>
               <button className="p-2 ms-1 d-inline-block btn btn-dark" onClick={() => { toggleMode('dark') }}></button>
-              <button className="p-2 ms-1 d-inline-block btn btn-secondary" onClick={() => { toggleMode('secondary') }}></button>
             </div>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default function Landing() {
             }
 
           </div>
-          <div className="row d-none">
+          <div className="row">
             {
               userData.map((element, index) => {
                 return (
