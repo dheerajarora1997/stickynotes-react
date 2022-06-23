@@ -6,22 +6,29 @@ import '@popperjs/core/dist/cjs/popper'
 
 export default function Landing() {
 
-  let localStorageNotes = localStorage.getItem('stickyNotesCount');
-  let localNotesCount = (localStorageNotes ? localStorageNotes : 0);
+  let sampleData = [
+    {
+      "name": "",
+      "color": "secondary",
+      "position": "blank",
+      "size": 4,
+      "data": "hello world",
+    }];
 
+  let localStorageNotes = localStorage.getItem('stickyNotesCount');
+  let localNotesCount = (localStorageNotes ? localStorageNotes : '');
   const [stickyNotesCount, setStickyNotesCount] = useState(localNotesCount);
-  console.log(stickyNotesCount);
 
   const addStickyNote = (e) => {
-    setStickyNotesCount(parseInt(stickyNotesCount) + 1);
-    localStorage.setItem(`stickyNote${(parseInt(stickyNotesCount) + 1)}`, '');
+    // setStickyNotesCount(parseInt(stickyNotesCount) + 1);
+    // localStorage.setItem(`stickyNote${(parseInt(stickyNotesCount) + 1)}`, '');
   }
 
-  if (stickyNotesCount) {
+  if (localNotesCount) {
     localStorage.setItem('stickyNotesCount', stickyNotesCount);
   }
   else {
-    localStorage.setItem('stickyNotesCount', 0);
+    localStorage.setItem('stickyNotesCount', JSON.stringify(sampleData));
   }
 
   let localStorageTheme = localStorage.getItem('themeMode');
@@ -39,6 +46,9 @@ export default function Landing() {
     setThemeMode(cls);
   }
 
+  let localContent = JSON.parse(stickyNotesCount);
+  console.log(localContent[0].color);
+
   return (
     <>
       <div className={`navbar py-2 navbar-light bg-${themeMode} bg-opacity-25`}>
@@ -48,7 +58,7 @@ export default function Landing() {
               <h1 className={`h5 text-${themeMode}`}>
                 Sticky Notes -
                 <span className="fw-light">
-                  <a href="javascript:void(0);" className={`ps-2 text-decoration-none text-${themeMode}`}>
+                  <a href="https://www.linkedin.com/in/dheerajarora1997/" className={`ps-2 text-decoration-none text-${themeMode}`}>
                     By Dheeraj Arora
                   </a>
                 </span>
@@ -70,70 +80,50 @@ export default function Landing() {
       <div className={`bg-${themeMode} bg-opacity-10 py-3 min-vh-100`}>
         <div className="container">
           <div className="row">
-            {stickyNotesCount}
-            {stickyNotesCount >= 9 ?
+            {localContent.length}
+            {/* {localContent} */}
+            {localContent.map((element, index) => {
+              return (
+                <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} key={index}>
+                  <div className={`bg-${element.color} bg-opacity-10 p-0 rounded overflow-hidden position-relative shadow-sm sticky-card`}>
+                    <div className={`bg-${element.color} bg-opacity-25 d-flex align-items-center justify-content-between py-2 w-100`}>
+                      <h3 className={`h5 my-0 ms-3 text-${element.color} text-opacity-50 fw-normal`}>Scratch Pad</h3>
+                      <div className="sticky-options d-flex">
+                        <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-3`}>Copy</button>
+                        {/* <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-3`}>Delete</button> */}
+                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-flex justify-content-center align-items-center me-1`}>
+                          <span className={`material-icons-outlined`}>arrow_back_ios</span>
+                        </button>
+                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-flex justify-content-center align-items-center me-3`}>
+                          <span className={`material-icons-outlined`}>arrow_forward_ios</span>
+                        </button>
+                      </div>
+                    </div>
+                    <textarea className={`form-control border-0 bg-${element.color} bg-opacity-10 text-${element.color}`} rows="6"
+                    // value={element.data}
+                    ></textarea>
+                  </div>
+                </div>
+              )
+            })}
+            {stickyNotesCount >= 10 ?
               <div className="col-12">
                 <div className={`alert alert-${themeMode} alert-dismissible fade show`} role="alert">
                   <strong>Note : </strong> Only 10 Sticky Notes allowed.
                   <span className="float-end cursor-pointer" data-bs-dismiss="alert">Close</span>
                 </div>
               </div> :
-              <div className={`col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-4`}>
+              <div className={`col-12 col-sm-6 col-md-4 mb-3 h-100`}>
                 <button className={`w-100 h-100 text-${themeMode} bg-${themeMode} bg-opacity-10 border border-${themeMode} rounded position-relative shadow-sm sticky-card-empty text-decoration-none py-5`} onClick={addStickyNote}>
-                  <div className="py-1">
+                  <div className="py-3 my-1">
                     <span className={`bg-${themeMode} bg-opacity-25 d-inline-block rounded-circle d-flex justify-content-center align-items-center mx-auto fs-3 mb-1`} style={{ width: '50px', height: '50px' }}>+</span>
                     {stickyNotesCount == 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
                   </div>
                 </button>
               </div>
             }
-
           </div>
-          <div className="row">
-            {
-              userData.map((element, index) => {
-                return (
-                  <div className={`col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-4 ${element.isPinned ? 'order-first' : ' '}`} key={index}>
-                    <div className={`bg-${themeMode} bg-opacity-10 p-0 rounded position-relative shadow-sm sticky-card`}>
-                      <button className={`bg-${themeMode} text-${themeMode} btn btn-link p-0 justify-content-center align-items-center pin-btn ${element.isPinned ? 'bg-opacity-25' : 'bg-opacity-10'}`}
-                      >
-                        <span className={`material-icons${element.isPinned ? '' : '-outlined'}`}>push_pinn</span>
-                      </button>
-                      <h3 className={`h6 mb-0 position-absolute ps-4 ms-3 mt-1 text-${themeMode} fw-normal ${element.islocked ? 'text-opacity-10' : 'text-opacity-75'}`}>Scratch Pad</h3>
-                      <div className="sticky-options">
-                        <div className="dropdown dropend">
-                          <div className="btn btn link p-1">
-                            <span className={`text-${themeMode} material-icons-outlined`}> more_vert </span>
-                          </div>
-                          <ul className="dropdown-menu py-0">
-                            <li>
-                              <button className="dropdown-item" type="button">
-                                <span className="material-icons-outlined"> copy_all </span> Copy
-                              </button>
-                            </li>
-                            <li>
-                              <button className="dropdown-item" type="button">
-                                <span className="material-icons-outlined"> backspace </span> Erease
-                              </button>
-                            </li>
-                            <li>
-                              <button className="dropdown-item bg-danger bg-opacity-25 text-white" type="button">
-                                <span className="material-icons-outlined"> delete_forever </span> Delete
-                              </button>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <textarea className={`form-control border-0 bg-${themeMode} bg-opacity-10 text-${themeMode}`} rows="6"
-                        // value={element.sampleData}
-                        readOnly={element.islocked}
-                      >{element.islocked}</textarea>
-                      {element.islocked}
-                    </div>
-                  </div>
-                )
-              })
-            }
+          <div className="">
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 textarea {
   resize: none;
-  padding: 33px 10px 10px !important;
+  border-radius: 0;
+  padding: 10px 10px 10px !important;
 }
 
 [class*="material-icons"] {
@@ -18,8 +19,6 @@ textarea {
 }
 
 .sticky-options {
-  position: absolute;
-  right: 0;
   visibility: hidden;
 }
 
@@ -29,7 +28,25 @@ textarea {
       visibility: visible;
     }
   }
-  &-empty{
+
+  &-empty {
     border-style: dashed !important;
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 2px;
+  &-track {
+    border-radius: 2px;
+    background: rgba(0,0,0,.1);
+  }
+  &-thumb {
+    border-radius: 2px;
+    background: rgba(0,0,0,.13);
+    &:hover {
+      background: rgba(0,0,0,.15);
+    }
   }
 }
