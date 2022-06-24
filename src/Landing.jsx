@@ -25,12 +25,6 @@ export default function Landing() {
   let localNotesCount = (localStorageNotes ? localStorageNotes : '');
   const [stickyNotes, setStickyNotes] = useState(localNotesCount);
 
-  // const handleAdd = (todo) => {
-  //   const newTodos = [...todos];
-  //   newTodos.push(todo);
-  //   setTodos(newTodos);
-  // }
-
   const addStickyNote = (e) => {
     const newData = [...JSON.parse(stickyNotes)];
 
@@ -66,7 +60,6 @@ export default function Landing() {
   let localContent = JSON.parse(stickyNotes);
 
   let updateContent = (e, index) => {
-    e.preventDefault();
     let oldContent = localContent;
     oldContent[index].data = e.target.value;
     localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
@@ -90,7 +83,6 @@ export default function Landing() {
 
   useEffect(() => {
     // alert('use effect');
-    // Landing()
   }, [localContent])
 
   return (
@@ -133,17 +125,17 @@ export default function Landing() {
                       <div className="sticky-options d-flex">
 
                         {
-                          element.data ?
-                            <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-3`}>Copy</button>
-                            :
-                            <button type="button" className={`small py-1 px-2 bg-danger bg-opacity-10 border border-danger text-danger rounded pointer me-3`}>Delete</button>
+                          <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-3`}>{element.data ? 'copy' : 'Delete'}</button>
                         }
                         <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`}
-                          onClick={(e) => { decreaseSize(e, index) }}>
+                          onClick={(e) => { decreaseSize(e, index) }}
+                          // {element.size === 4 ? disabled: false}
+                          >
                           <span className={`material-icons-outlined flip-icon`}>start</span>
                         </button>
                         <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-3`}
-                          onClick={(e) => { increaseSize(e, index) }}>
+                          onClick={(e) => { increaseSize(e, index) }}
+                          disabled={`${element.size === 12 ? true : false}`}>{element.size}
                           <span className={`material-icons-outlined`}>start</span>
                         </button>
                       </div>
@@ -151,7 +143,7 @@ export default function Landing() {
                     <textarea className={`form-control border-0 bg-${element.color} bg-opacity-10 rounded-0 text-${element.color}`}
                       rows={`${element.size > 8 ? 12 : 6}`}
                       onChange={(e) => { updateContent(e, index) }}
-                      value={element.data ? element.data : ''}
+                      // value={element.data ? element.data : ''}
                       placeholder="Enter some Text"
                     ></textarea>
                   </div>
