@@ -5,8 +5,7 @@ import 'bootstrap/dist/js/bootstrap';
 import '@popperjs/core/dist/cjs/popper'
 
 export default function Landing() {
-
-  let sampleData = [
+  let sampleDataArray = [
     {
       "name": "",
       "color": "secondary",
@@ -14,21 +13,40 @@ export default function Landing() {
       "size": 4,
       "data": "hello world",
     }];
+  let sampleData =
+  {
+    "name": "",
+    "color": "secondary",
+    "position": "blank",
+    "size": 4,
+    "data": "hello world",
+  };
 
-  let localStorageNotes = localStorage.getItem('stickyNotesCount');
+  let localStorageNotes = localStorage.getItem('stickyNotes');
   let localNotesCount = (localStorageNotes ? localStorageNotes : '');
-  const [stickyNotesCount, setStickyNotesCount] = useState(localNotesCount);
+  const [stickyNotes, setStickyNotes] = useState(localNotesCount);
+
+  // const handleAdd = (todo) => {
+  //   const newTodos = [...todos];
+  //   newTodos.push(todo);
+  //   setTodos(newTodos);
+  // }
 
   const addStickyNote = (e) => {
-    // setStickyNotesCount(parseInt(stickyNotesCount) + 1);
-    // localStorage.setItem(`stickyNote${(parseInt(stickyNotesCount) + 1)}`, '');
+    const newData = [...JSON.parse(stickyNotes)];
+
+    newData.push(sampleData);
+
+    setStickyNotes(JSON.stringify(newData));
+    // setStickyNotes(parseInt(stickyNotes) + 1);
+    // localStorage.setItem(`stickyNote${(parseInt(stickyNotes) + 1)}`, '');
   }
 
   if (localNotesCount) {
-    localStorage.setItem('stickyNotesCount', stickyNotesCount);
+    localStorage.setItem('stickyNotes', stickyNotes);
   }
   else {
-    localStorage.setItem('stickyNotesCount', JSON.stringify(sampleData));
+    localStorage.setItem('stickyNotes', JSON.stringify(sampleDataArray));
   }
 
   let localStorageTheme = localStorage.getItem('themeMode');
@@ -36,7 +54,7 @@ export default function Landing() {
   const [themeMode, setThemeMode] = useState(localValue);
 
   if (themeMode === 'primary') {
-    localStorage.setItem('themeMode', 'primary');
+    localStorage.setItem('themeMode', 'light');
   }
   else {
     localStorage.setItem('themeMode', themeMode);
@@ -46,8 +64,7 @@ export default function Landing() {
     setThemeMode(cls);
   }
 
-  let localContent = JSON.parse(stickyNotesCount);
-  console.log(localContent[0].color);
+  let localContent = JSON.parse(stickyNotes);
 
   return (
     <>
@@ -80,8 +97,6 @@ export default function Landing() {
       <div className={`bg-${themeMode} bg-opacity-10 py-3 min-vh-100`}>
         <div className="container">
           <div className="row">
-            {localContent.length}
-            {/* {localContent} */}
             {localContent.map((element, index) => {
               return (
                 <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} key={index}>
@@ -106,10 +121,10 @@ export default function Landing() {
                 </div>
               )
             })}
-            {stickyNotesCount >= 10 ?
+            {localContent.length >= 9 ?
               <div className="col-12">
                 <div className={`alert alert-${themeMode} alert-dismissible fade show`} role="alert">
-                  <strong>Note : </strong> Only 10 Sticky Notes allowed.
+                  <strong>Note : </strong> Only 9 Sticky Notes allowed.
                   <span className="float-end cursor-pointer" data-bs-dismiss="alert">Close</span>
                 </div>
               </div> :
@@ -117,7 +132,7 @@ export default function Landing() {
                 <button className={`w-100 h-100 text-${themeMode} bg-${themeMode} bg-opacity-10 border border-${themeMode} rounded position-relative shadow-sm sticky-card-empty text-decoration-none py-5`} onClick={addStickyNote}>
                   <div className="py-3 my-1">
                     <span className={`bg-${themeMode} bg-opacity-25 d-inline-block rounded-circle d-flex justify-content-center align-items-center mx-auto fs-3 mb-1`} style={{ width: '50px', height: '50px' }}>+</span>
-                    {stickyNotesCount == 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
+                    {localContent == 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
                   </div>
                 </button>
               </div>
