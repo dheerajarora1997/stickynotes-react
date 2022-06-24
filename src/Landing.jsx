@@ -11,15 +11,14 @@ export default function Landing() {
       "color": "secondary",
       "position": "blank",
       "size": 4,
-      "data": "hello world",
+      "data": "",
     }];
-  let sampleData =
-  {
+  let sampleData = {
     "name": "",
     "color": "secondary",
     "position": "blank",
     "size": 4,
-    "data": "hello world",
+    "data": "",
   };
 
   let localStorageNotes = localStorage.getItem('stickyNotes');
@@ -66,6 +65,31 @@ export default function Landing() {
 
   let localContent = JSON.parse(stickyNotes);
 
+  let updateContent = (e, index) => {
+    let oldContent = localContent;
+    oldContent[index].data = e.target.value;
+    localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
+  }
+
+  let increaseSize = (index) => {
+    let oldContent = localContent;
+    console.log(oldContent);
+    oldContent[index].size = oldContent[index].size + 2;
+    console.log(oldContent);
+    localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
+  }
+
+  let decreaseSize = (index) => {
+    let oldContent = localContent;
+    oldContent[index].size = oldContent[index].size - 2;
+    localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
+  }
+
+  useEffect(() => {
+    // alert('use effect');
+    // Landing()
+  }, [localContent])
+
   return (
     <>
       <div className={`navbar py-2 navbar-light bg-${themeMode} bg-opacity-25`}>
@@ -106,16 +130,20 @@ export default function Landing() {
                       <div className="sticky-options d-flex">
                         <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-3`}>Copy</button>
                         {/* <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-3`}>Delete</button> */}
-                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-flex justify-content-center align-items-center me-1`}>
+                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-flex justify-content-center align-items-center me-1`}
+                          onClick={() => { decreaseSize(index) }}>
                           <span className={`material-icons-outlined`}>arrow_back_ios</span>
                         </button>
-                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-flex justify-content-center align-items-center me-3`}>
+                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-flex justify-content-center align-items-center me-3`}
+                          onClick={() => { increaseSize(index) }}>
                           <span className={`material-icons-outlined`}>arrow_forward_ios</span>
                         </button>
                       </div>
                     </div>
                     <textarea className={`form-control border-0 bg-${element.color} bg-opacity-10 text-${element.color}`} rows="6"
-                    // value={element.data}
+                      onChange={(e) => { updateContent(e, index) }}
+                      value={element.data ? element.data : null}
+                      placeholder="Enter some Text"
                     ></textarea>
                   </div>
                 </div>
@@ -137,8 +165,6 @@ export default function Landing() {
                 </button>
               </div>
             }
-          </div>
-          <div className="">
           </div>
         </div>
       </div>
