@@ -8,14 +8,14 @@ export default function Landing() {
   let sampleDataArray = [
     {
       "name": "",
-      "color": "secondary",
+      "color": "primary",
       "position": "blank",
       "size": 4,
       "data": "",
     }];
   let sampleData = {
     "name": "",
-    "color": "secondary",
+    "color": "primary",
     "position": "blank",
     "size": 4,
     "data": "",
@@ -53,7 +53,7 @@ export default function Landing() {
   const [themeMode, setThemeMode] = useState(localValue);
 
   if (themeMode === 'primary') {
-    localStorage.setItem('themeMode', 'light');
+    localStorage.setItem('themeMode', 'primary');
   }
   else {
     localStorage.setItem('themeMode', themeMode);
@@ -66,23 +66,26 @@ export default function Landing() {
   let localContent = JSON.parse(stickyNotes);
 
   let updateContent = (e, index) => {
+    e.preventDefault();
     let oldContent = localContent;
     oldContent[index].data = e.target.value;
     localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
   }
 
-  let increaseSize = (index) => {
+  let increaseSize = (e, index) => {
     let oldContent = localContent;
-    console.log(oldContent);
-    oldContent[index].size = oldContent[index].size + 2;
-    console.log(oldContent);
-    localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
+    if (oldContent[index].size < 12) {
+      oldContent[index].size = oldContent[index].size + 2;
+      localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
+    }
   }
 
-  let decreaseSize = (index) => {
+  let decreaseSize = (e, index) => {
     let oldContent = localContent;
-    oldContent[index].size = oldContent[index].size - 2;
-    localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
+    if (oldContent[index].size > 4) {
+      oldContent[index].size = oldContent[index].size - 2;
+      localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
+    }
   }
 
   useEffect(() => {
@@ -126,23 +129,29 @@ export default function Landing() {
                 <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} key={index}>
                   <div className={`bg-${element.color} bg-opacity-10 p-0 rounded overflow-hidden position-relative shadow-sm sticky-card`}>
                     <div className={`bg-${element.color} bg-opacity-25 d-flex align-items-center justify-content-between py-2 w-100`}>
-                      <h3 className={`h5 my-0 ms-3 text-${element.color} text-opacity-50 fw-normal`}>Scratch Pad</h3>
+                      <h3 className={`h6 my-0 ms-3 text-${element.color} text-opacity-50 fw-normal`}>Scratch Pad</h3>
                       <div className="sticky-options d-flex">
-                        <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-3`}>Copy</button>
-                        {/* <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-3`}>Delete</button> */}
-                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-flex justify-content-center align-items-center me-1`}
-                          onClick={() => { decreaseSize(index) }}>
-                          <span className={`material-icons-outlined`}>arrow_back_ios</span>
+
+                        {
+                          element.data ?
+                            <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-3`}>Copy</button>
+                            :
+                            <button type="button" className={`small py-1 px-2 bg-danger bg-opacity-10 border border-danger text-danger rounded pointer me-3`}>Delete</button>
+                        }
+                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`}
+                          onClick={(e) => { decreaseSize(e, index) }}>
+                          <span className={`material-icons-outlined flip-icon`}>start</span>
                         </button>
-                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-flex justify-content-center align-items-center me-3`}
-                          onClick={() => { increaseSize(index) }}>
-                          <span className={`material-icons-outlined`}>arrow_forward_ios</span>
+                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-3`}
+                          onClick={(e) => { increaseSize(e, index) }}>
+                          <span className={`material-icons-outlined`}>start</span>
                         </button>
                       </div>
                     </div>
-                    <textarea className={`form-control border-0 bg-${element.color} bg-opacity-10 text-${element.color}`} rows="6"
+                    <textarea className={`form-control border-0 bg-${element.color} bg-opacity-10 rounded-0 text-${element.color}`}
+                      rows={`${element.size > 8 ? 12 : 6}`}
                       onChange={(e) => { updateContent(e, index) }}
-                      value={element.data ? element.data : null}
+                      value={element.data ? element.data : ''}
                       placeholder="Enter some Text"
                     ></textarea>
                   </div>

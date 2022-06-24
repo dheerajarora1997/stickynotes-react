@@ -10,16 +10,14 @@ textarea {
   height: 15px;
 }
 
-.pin-btn {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 0 0 10px 0;
-  z-index: 1;
+.flip-icon{
+  transform: rotate(180deg);
 }
 
 .sticky-options {
-  visibility: hidden;
+  @media only screen and (min-width: 1023px){
+    visibility: hidden;
+  }
 }
 
 .sticky-card {
