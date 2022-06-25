@@ -41,21 +41,20 @@ export default function Landing() {
   }
   const copyDeleteFunction = (e, index) => {
     console.log(e, index);
-    if (myState[index].data != '') {
+    if (myState[index]?.data != '') {
       navigator.clipboard.writeText(myState[index].data);
       console.log(myState[index].data);
     }
     else {
       let oldContent = [...myState];
-      myState.splice([index], 1);
-      console.log(myState)
+      oldContent.splice([index], 1);
       setMyState(oldContent);
+      localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
     }
   }
 
   useEffect(() => {
     localStorage.setItem('stickyNotes', JSON.stringify(myState));
-    console.log('Use')
   }, [myState])
 
   return (
@@ -65,7 +64,7 @@ export default function Landing() {
           <div className="row">
             <div className="col-6 col-sm-6">
               <h1 className={`h5 text-priamary`}>
-                Sticky Notes -
+                Sticky Notes
               </h1>
             </div>
             <div className="col-6 col-sm-6 text-end">
@@ -80,6 +79,9 @@ export default function Landing() {
       </div>
       <div className={`bg-primary bg-opacity-10 py-3 min-vh-100`}>
         <div className="container">
+          <p className="">
+            <strong>Note : </strong><span>Your entire data set will be kept in your browser local storage.</span>
+          </p>
           <div className="row">
             {myState?.map((element, index) => {
               return (
@@ -116,9 +118,8 @@ export default function Landing() {
             })}
             {myState.length >= 9 ?
               <div className="col-12">
-                <div className={`alert alert-priamry alert-dismissible fade show`} role="alert">
+                <div className={`alert alert-primary fade show`} role="alert">
                   <strong>Note : </strong> Only 9 Sticky Notes allowed.
-                  <span className="float-end cursor-pointer" data-bs-dismiss="alert">Close</span>
                 </div>
               </div> :
               <div className={`col-12 col-sm-6 col-md-4 mb-3 h-100`}>
