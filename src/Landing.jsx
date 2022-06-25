@@ -57,29 +57,39 @@ export default function Landing() {
     localStorage.setItem('stickyNotes', JSON.stringify(myState));
   }, [myState])
 
+  const exportData = () => {
+    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+      JSON.stringify(myState)
+    )}`;
+    const link = document.createElement("a");
+    link.href = jsonString;
+    link.download = "data.json";
+
+    link.click();
+  };
+
   return (
     <>
       <div className={`navbar py-2 navbar-light bg-primary bg-opacity-25`}>
         <div className="container">
-          <div className="row">
+          <div className="row align-items-center">
             <div className="col-6 col-sm-6">
-              <h1 className={`h5 text-priamary`}>
-                Sticky Notes
+              <h1 className={`h5 text-primary my-0`}>
+                <a href="/" className="text-decoration-none">Sticky Notes</a>
               </h1>
             </div>
             <div className="col-6 col-sm-6 text-end">
-              <span className="fw-light">
-                <a href="https://www.linkedin.com/in/dheerajarora1997/" target="_blank" className={`ps-2 text-decoration-none text-primary`}>
-                  By Dheeraj Arora <sup className="material-icons"> launch </sup>
-                </a>
-              </span>
+              <button className="btn btn-primary" onClick={exportData}>Export Data</button>
+              <a href="https://www.linkedin.com/in/dheerajarora1997/" target="_blank" className={`btn btn-primary ms-2`}>
+                Dheeraj Arora <small className="material-icons"> launch </small>
+              </a>
             </div>
           </div>
         </div>
       </div>
       <div className={`bg-primary bg-opacity-10 py-3 min-vh-100`}>
         <div className="container">
-          <p className="">
+          <p>
             <strong>Note : </strong><span>Your entire data set will be kept in your browser local storage.</span>
           </p>
           <div className="row">
