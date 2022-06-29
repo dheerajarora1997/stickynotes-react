@@ -10,20 +10,31 @@ textarea {
   height: 15px;
 }
 
-.flip-icon{
+.flip-icon {
   transform: rotate(180deg);
 }
 
-.sticky-options {
-  @media only screen and (min-width: 1023px){
+.sticky-options,
+.dragicon {
+  @media only screen and (min-width: 1023px) {
     visibility: hidden;
+    display: none;
   }
+}
+
+.dragicon {
+  position: absolute;
+  left: -14px;
+  top: 1px;
 }
 
 .sticky-card {
   &:hover {
-    .sticky-options {
+
+    .sticky-options,
+    .dragicon {
       visibility: visible;
+      display: block;
     }
   }
 
@@ -35,14 +46,39 @@ textarea {
 /* width */
 ::-webkit-scrollbar {
   width: 8px;
+
   &-track {
-    background: rgba(0,0,0,.05);
+    background: rgba(0, 0, 0, .05);
   }
+
   &-thumb {
     border-radius: 8px;
-    background: rgba(0,0,0,.1);
+    background: rgba(0, 0, 0, .1);
+
     &:hover {
-      background: rgba(0,0,0,.11);
+      background: rgba(0, 0, 0, .11);
     }
+  }
+}
+
+.sortable-ghost {
+  opacity: .7;
+  position: relative;
+
+  &:before {
+    position: absolute;
+    background-color: lighten($primary, 45%);
+    border: 1px dashed $primary;
+    content: 'open_with';
+    font-size: 70px;
+    font-family: 'Material Icons';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    color: lighten($primary, 70%);
+    width: calc(100% - 20px);
+    margin-bottom: 0 !important;
+    height: 100%;
   }
 }
