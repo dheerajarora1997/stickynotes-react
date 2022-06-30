@@ -140,27 +140,33 @@ export default function Landing() {
               return (
                 <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} style={{ border: '5px solid #e7eff5', borderWidth: '0 10px' }} key={index}>
                   <div className={`rounded overflow-hidden position-relative sticky-card`}>
-                    <div className={`bg-${element.color} bg-opacity-25 d-flex align-items-center justify-content-between py-2 ps-3 pe-2 w-100 shadow-sm`}>
-                      <h3 className={`h6 my-1 my-md-0 text-${element.color} text-opacity-75 fw-normal d-flex align-items-center position-relative`}>
-                        <span className={`material-icons-outlined dragicon ${isMobile > 768 ? 'dragHadle' : ''}`}> drag_indicator </span>
-                        <input type="text" className={`border-0 py-1 m-0 w-75 ps-1 text-${element.color}`} style={{ background: 'none', }} maxLength="18"
-                          value={element.name} onChange={(e) => { updateName(e, index) }}
-                        />
-                      </h3>
-                      <div className="sticky-options d-flex">
-                        {
-                          <button type="button" className={`small py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-0 me-md-3 ${myState.length === 1 && element.data == '' ? 'd-none' : ''}`} onClick={(e) => { copyDeleteFunction(e, index) }} ref={refcopyButton.current[index]}>{element.data ? 'Copy' : 'Delete'}</button>
-                        }
-                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }}
-                          onClick={(e) => { decreaseSize(e, index) }}
-                          disabled={element.size === 4 ? 'disabled' : ''}
-                        >
-                          <span className={`material-icons-outlined flip-icon`}>start</span>
-                        </button>
-                        <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }}
-                          onClick={(e) => { increaseSize(e, index) }}>
-                          <span className={`material-icons-outlined`}>start</span>
-                        </button>
+                    <div className={`bg-${element.color} bg-opacity-25 d-block py-2 px-3 w-100 shadow-sm`}>
+                      <div className="row align-items-center w-100 g-0">
+                        <div className="col-7">
+                          <h3 className={`h6 my-1 my-md-0 text-${element.color} text-opacity-75 fw-normal d-flex align-items-center position-relative`}>
+                            <span className={`material-icons-outlined dragicon ${isMobile > 768 ? 'dragHadle' : ''}`}> drag_indicator </span>
+                            <input type="text" className={`border-0 py-1 m-0 w-100 ps-1 text-${element.color}`} style={{ background: 'none', }} maxLength="18"
+                              value={element.name} onChange={(e) => { updateName(e, index) }}
+                            />
+                          </h3>
+                        </div>
+                        <div className="col-5 text-end">
+                          <div className="sticky-options d-flex justify-content-end">
+                            {
+                              <button type="button" className={`small nowrap py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-0 me-md-2 ${myState.length === 1 && element.data == '' ? 'd-none' : ''}`} onClick={(e) => { copyDeleteFunction(e, index) }} ref={refcopyButton.current[index]}>{element.data ? 'Copy' : 'Delete'}</button>
+                            }
+                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }}
+                              onClick={(e) => { decreaseSize(e, index) }}
+                              disabled={element.size === 4 ? 'disabled' : ''}
+                            >
+                              <span className={`material-icons-outlined flip-icon`}>start</span>
+                            </button>
+                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }}
+                              onClick={(e) => { increaseSize(e, index) }}>
+                              <span className={`material-icons-outlined`}>start</span>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <textarea ref={refTextArea.current[index]} className={`form-control border-0 bg-${element.color} bg-opacity-10 rounded-0 text-${element.color}`} rows={`${element.size > 8 ? 12 : 7}`} onChange={(e) => { updateContent(e, index) }} value={element.data} placeholder="Enter some Text"></textarea>
