@@ -161,7 +161,7 @@ export default function Landing() {
                             >
                               <span className={`material-icons-outlined flip-icon`}>start</span>
                             </button>
-                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }}
+                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center`} style={{ minHeight: '30px' }}
                               onClick={(e) => { increaseSize(e, index) }}>
                               <span className={`material-icons-outlined`}>start</span>
                             </button>
