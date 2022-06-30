@@ -26,15 +26,21 @@ textarea {
   position: absolute;
   left: -14px;
   top: 1px;
+  display: none;
 }
 
 .sticky-card {
   &:hover {
-
-    .sticky-options,
-    .dragicon {
+    .sticky-options {
       visibility: visible;
       display: block;
+    }
+
+    .dragicon {
+      @media only screen and (min-width: 768px) {
+        visibility: visible;
+        display: block;
+      }
     }
   }
 
@@ -77,8 +83,17 @@ textarea {
     justify-content: center;
     line-height: 0;
     color: lighten($primary, 70%);
-    width: calc(100% - 20px);
+    width: 100%;
     margin-bottom: 0 !important;
     height: 100%;
+    border-radius: .25rem;
   }
+}
+
+.dragHadle {
+  cursor: grab;
+}
+
+.sortable-chosen {
+  border: 0 !important;
 }

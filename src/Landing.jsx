@@ -11,15 +11,15 @@ export default function Landing() {
     "data": "",
   };
 
-  let createRef = () => React.createRef();
   const [myState, setMyState] = useState(localStorage.getItem('stickyNotes') ? (JSON.parse(localStorage.getItem('stickyNotes'))) : [{ ...sampleData }]);
-
+  
   const refTextArea = useRef([]);
-  refTextArea.current = myState.map((element, i) => refTextArea[i] ?? createRef());
+  refTextArea.current = myState.map((element, i) => refTextArea[i] ?? React.createRef());
 
   const refcopyButton = useRef([]);
-  refcopyButton.current = myState.map((element, i) => refcopyButton[i] ?? createRef());
+  refcopyButton.current = myState.map((element, i) => refcopyButton[i] ?? React.createRef());
 
+  const isMobile = window.innerWidth;
 
   const addStickyNote = (e) => {
     const newData = [...myState];
@@ -85,12 +85,12 @@ export default function Landing() {
       <div className={`navbar py-2 navbar-light bg-primary bg-opacity-25`}>
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-12 col-sm-6">
+            <div className="col-12 col-sm-4">
               <h1 className={`h5 text-primary my-0`}>
                 <a href="/" className="text-decoration-none">Sticky Notes</a>
               </h1>
             </div>
-            <div className="col-12 col-sm-6 text-end">
+            <div className="col-12 col-sm-8 text-end">
               <button className="btn bg-primary bg-opacity-75 text-white" onClick={exportData}>Export Data</button>
               <a href="https://www.linkedin.com/in/dheerajarora1997/" target="_blank" className={`btn bg-primary bg-opacity-75 text-white ms-2`}>
                 Dheeraj Arora <small className="material-icons"> launch </small>
@@ -100,7 +100,7 @@ export default function Landing() {
         </div>
       </div>
       <div className={`bg-primary bg-opacity-10 py-3 min-vh-100`}>
-        <div className="container">
+        <div className="container px-4 px-md-2">
           <div className="row align-items-center mb-2">
             <div className="col-10">
               <p className="my-2">
@@ -116,12 +116,12 @@ export default function Landing() {
               </button>
             </div>
           </div>
-          <ReactSortable className="row" list={myState} setList={setMyState} animation={200}>
+          <ReactSortable className="row gx-0" list={myState} setList={setMyState} animation={200} handle=".dragHadle" >
             {myState?.map((element, index) => {
               return (
-                <div className={`px-md-0 col-12 col-sm-6 col-md-${element.size} mb-3`} key={index}>
-                  <div className={`mx-2 p-0 rounded overflow-hidden position-relative sticky-card`}>
-                    <div className={`bg-${element.color} bg-opacity-25 d-flex align-items-center justify-content-between py-2 ps-3 pe-2 w-100 shadow-sm`}>
+                <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} style={{border: '5px solid #e7eff5', borderWidth: '0 10px'}} key={index}>
+                  <div className={`rounded overflow-hidden position-relative sticky-card`}>
+                    <div className={`bg-${element.color} bg-opacity-25 d-flex align-items-center justify-content-between py-2 ps-3 pe-2 w-100 shadow-sm ${isMobile > 768 ? 'dragHadle' : ''}`}>
                       <h3 className={`h6 my-1 my-md-0 text-${element.color} text-opacity-75 fw-normal d-flex align-items-center position-relative`}>
                         <span className={`material-icons-outlined dragicon`}> drag_indicator </span>
                         Sticky Note
