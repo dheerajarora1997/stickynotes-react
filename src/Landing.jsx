@@ -119,7 +119,7 @@ export default function Landing() {
         </div>
       </div>
       <div className={`bg-primary bg-opacity-10 py-3 min-vh-100`}>
-        <div className="container px-4 px-md-2">
+        <div className="container">
           <div className="row align-items-center mb-2">
             <div className="col-10">
               <p className="my-2">
