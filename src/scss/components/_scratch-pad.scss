@@ -25,7 +25,7 @@ textarea {
 .dragicon {
   position: absolute;
   left: -14px;
-  top: 1px;
+  top: 5px;
   display: none;
 }
 
@@ -47,6 +47,19 @@ textarea {
   &-empty {
     border-style: dashed !important;
   }
+
+  .dragHadle {
+    cursor: grabbing;
+  }
+
+  .color-btn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 100% 0% 0% 100% / 100% 100% 0% 0%;
+  }
 }
 
 /* width */
@@ -67,33 +80,31 @@ textarea {
   }
 }
 
-.sortable-ghost {
-  opacity: .7;
-  position: relative;
+.sortable- {
+  &ghost {
+    opacity: .7;
+    position: relative;
 
-  &:before {
-    position: absolute;
-    background-color: lighten($primary, 45%);
-    border: 1px dashed $primary;
-    content: 'open_with';
-    font-size: 70px;
-    font-family: 'Material Icons';
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 0;
-    color: lighten($primary, 70%);
-    width: 100%;
-    margin-bottom: 0 !important;
-    height: 100%;
-    border-radius: .25rem;
+    &:before {
+      position: absolute;
+      background-color: rgba(0, 0, 0, .2);
+      border: 1px dashed rgba(0, 0, 0, .7);
+      content: 'open_with';
+      font-size: 70px;
+      font-family: 'Material Icons';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+      color: lighten($primary, 70%);
+      width: 100%;
+      margin-bottom: 0 !important;
+      height: 100%;
+      border-radius: .25rem;
+    }
   }
-}
 
-.dragHadle {
-  cursor: grab;
-}
-
-.sortable-chosen {
-  border: 0 !important;
+  &chosen {
+    border: 0 !important;
+  }
 }

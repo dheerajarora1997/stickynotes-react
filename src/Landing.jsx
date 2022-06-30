@@ -4,7 +4,7 @@ import 'material-icons';
 
 export default function Landing() {
   let sampleData = {
-    "name": "",
+    "name": "Sticky Note",
     "color": "primary",
     "position": "blank",
     "size": 4,
@@ -12,7 +12,7 @@ export default function Landing() {
   };
 
   const [myState, setMyState] = useState(localStorage.getItem('stickyNotes') ? (JSON.parse(localStorage.getItem('stickyNotes'))) : [{ ...sampleData }]);
-  
+
   const refTextArea = useRef([]);
   refTextArea.current = myState.map((element, i) => refTextArea[i] ?? React.createRef());
 
@@ -30,6 +30,11 @@ export default function Landing() {
   let updateContent = (e, index) => {
     let oldContent = [...myState];
     oldContent[index].data = e.target.value;
+    setMyState(oldContent);
+  }
+  let updateName = (e, index) => {
+    let oldContent = [...myState];
+    oldContent[index].name = e.target.value;
     setMyState(oldContent);
   }
 
@@ -63,6 +68,20 @@ export default function Landing() {
       setMyState(oldContent);
       localStorage.setItem('stickyNotes', JSON.stringify(oldContent));
     }
+  }
+
+  const changeColor = (e, index) => {
+    let oldContent = [...myState];
+    console.log(oldContent[index].color)
+    if (oldContent[index].color == 'primary') { oldContent[index].color = 'secondary'; }
+    else if (oldContent[index].color == 'secondary') { oldContent[index].color = 'success'; }
+    else if (oldContent[index].color == 'success') { oldContent[index].color = 'danger'; }
+    else if (oldContent[index].color == 'danger') { oldContent[index].color = 'warning'; }
+    else if (oldContent[index].color == 'warning') { oldContent[index].color = 'light'; }
+    else if (oldContent[index].color == 'light') { oldContent[index].color = 'dark'; }
+    else if (oldContent[index].color == 'dark') { oldContent[index].color = 'info'; }
+    else { oldContent[index].color = 'primary'; }
+    setMyState(oldContent);
   }
 
   useEffect(() => {
@@ -119,12 +138,14 @@ export default function Landing() {
           <ReactSortable className="row gx-0" list={myState} setList={setMyState} animation={200} handle=".dragHadle" >
             {myState?.map((element, index) => {
               return (
-                <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} style={{border: '5px solid #e7eff5', borderWidth: '0 10px'}} key={index}>
+                <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} style={{ border: '5px solid #e7eff5', borderWidth: '0 10px' }} key={index}>
                   <div className={`rounded overflow-hidden position-relative sticky-card`}>
-                    <div className={`bg-${element.color} bg-opacity-25 d-flex align-items-center justify-content-between py-2 ps-3 pe-2 w-100 shadow-sm ${isMobile > 768 ? 'dragHadle' : ''}`}>
+                    <div className={`bg-${element.color} bg-opacity-25 d-flex align-items-center justify-content-between py-2 ps-3 pe-2 w-100 shadow-sm`}>
                       <h3 className={`h6 my-1 my-md-0 text-${element.color} text-opacity-75 fw-normal d-flex align-items-center position-relative`}>
-                        <span className={`material-icons-outlined dragicon`}> drag_indicator </span>
-                        Sticky Note
+                        <span className={`material-icons-outlined dragicon ${isMobile > 768 ? 'dragHadle' : ''}`}> drag_indicator </span>
+                        <input type="text" className={`border-0 py-1 m-0 w-75 ps-1 text-${element.color}`} style={{ background: 'none', }} maxLength="18"
+                          value={element.name} onChange={(e) => { updateName(e, index) }}
+                        />
                       </h3>
                       <div className="sticky-options d-flex">
                         {
@@ -142,12 +163,10 @@ export default function Landing() {
                         </button>
                       </div>
                     </div>
-                    <textarea ref={refTextArea.current[index]} className={`form-control border-0 bg-${element.color} bg-opacity-10 rounded-0 text-${element.color}`}
-                      rows={`${element.size > 8 ? 12 : 7}`}
-                      onChange={(e) => { updateContent(e, index) }}
-                      value={element.data}
-                      placeholder="Enter some Text"
-                    ></textarea>
+                    <textarea ref={refTextArea.current[index]} className={`form-control border-0 bg-${element.color} bg-opacity-10 rounded-0 text-${element.color}`} rows={`${element.size > 8 ? 12 : 7}`} onChange={(e) => { updateContent(e, index) }} value={element.data} placeholder="Enter some Text"></textarea>
+                    <button className={`btn color-btn border-0 py-2 text-${element.color} bg-${element.color} bg-opacity-25 `} onClick={(e) => { changeColor(e, index) }}>
+                      <span className="material-icons-outlined">color_lens</span>
+                    </button>
                   </div>
                 </div>
               )
