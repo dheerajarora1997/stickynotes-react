@@ -10,11 +10,12 @@ export default function Landing() {
     "size": 4,
     "data": "",
   };
+  const isMobile = window.innerWidth;
 
   const noteBorder = {
     borderStyle: 'solid',
-    borderColor: 'rgba(var(--bs-primary-rgb), .001)',
-    borderWidth: '0 10px 0 10px',
+    borderColor: 'transparent',
+    borderWidth: isMobile > 767 ? '0 10px 0 10px' : '0',
   };
 
   const [myState, setMyState] = useState(localStorage.getItem('stickyNotes') ? (JSON.parse(localStorage.getItem('stickyNotes'))) : [{ ...sampleData }]);
@@ -24,8 +25,6 @@ export default function Landing() {
 
   const refcopyButton = useRef([]);
   refcopyButton.current = myState.map((element, i) => refcopyButton[i] ?? React.createRef());
-
-  const isMobile = window.innerWidth;
 
   const addStickyNote = (e) => {
     const newData = [...myState];
@@ -102,8 +101,8 @@ export default function Landing() {
         break;
       default:
         oldContent[index].color = 'primary';
-      }
-      setMyState(oldContent);
+    }
+    setMyState(oldContent);
   }
 
   useEffect(() => {
