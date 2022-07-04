@@ -11,6 +11,12 @@ export default function Landing() {
     "data": "",
   };
 
+  const noteBorder = {
+    borderStyle: 'solid',
+    borderColor: 'rgba(var(--bs-primary-rgb), .001)',
+    borderWidth: '0 10px 0 10px',
+  };
+
   const [myState, setMyState] = useState(localStorage.getItem('stickyNotes') ? (JSON.parse(localStorage.getItem('stickyNotes'))) : [{ ...sampleData }]);
 
   const refTextArea = useRef([]);
@@ -154,7 +160,7 @@ export default function Landing() {
           <ReactSortable className="row gx-0" list={myState} setList={setMyState} animation={200} handle=".dragHadle" >
             {myState?.map((element, index) => {
               return (
-                <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} style={{ border: '5px solid #eee8f9', borderWidth: '0 10px 0' }} key={index}>
+                <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} style={noteBorder} key={index}>
                   <div className={`rounded overflow-hidden position-relative sticky-card`}>
                     <div className={`bg-${element.color} bg-opacity-25 d-block py-2 px-3 w-100 shadow-sm`}>
                       <div className="row align-items-center w-100 g-0">
