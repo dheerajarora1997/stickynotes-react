@@ -72,16 +72,32 @@ export default function Landing() {
 
   const changeColor = (e, index) => {
     let oldContent = [...myState];
-    console.log(oldContent[index].color)
-    if (oldContent[index].color == 'primary') { oldContent[index].color = 'secondary'; }
-    else if (oldContent[index].color == 'secondary') { oldContent[index].color = 'success'; }
-    else if (oldContent[index].color == 'success') { oldContent[index].color = 'danger'; }
-    else if (oldContent[index].color == 'danger') { oldContent[index].color = 'warning'; }
-    else if (oldContent[index].color == 'warning') { oldContent[index].color = 'light'; }
-    else if (oldContent[index].color == 'light') { oldContent[index].color = 'dark'; }
-    else if (oldContent[index].color == 'dark') { oldContent[index].color = 'info'; }
-    else { oldContent[index].color = 'primary'; }
-    setMyState(oldContent);
+    switch (oldContent[index].color) {
+      case 'primary':
+        oldContent[index].color = 'secondary';
+        break;
+      case 'secondary':
+        oldContent[index].color = 'success';
+        break;
+      case 'success':
+        oldContent[index].color = 'danger';
+        break;
+      case 'danger':
+        oldContent[index].color = 'warning';
+        break;
+      case 'warning':
+        oldContent[index].color = 'light';
+        break;
+      case 'light':
+        oldContent[index].color = 'dark';
+        break;
+      case 'dark':
+        oldContent[index].color = 'info';
+        break;
+      default:
+        oldContent[index].color = 'primary';
+      }
+      setMyState(oldContent);
   }
 
   useEffect(() => {
@@ -138,7 +154,7 @@ export default function Landing() {
           <ReactSortable className="row gx-0" list={myState} setList={setMyState} animation={200} handle=".dragHadle" >
             {myState?.map((element, index) => {
               return (
-                <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} style={{ border: '5px solid #e7eff5', borderWidth: '0 10px' }} key={index}>
+                <div className={`col-12 col-sm-6 col-md-${element.size} mb-3`} style={{ border: '5px solid #eee8f9', borderWidth: '0 10px 0' }} key={index}>
                   <div className={`rounded overflow-hidden position-relative sticky-card`}>
                     <div className={`bg-${element.color} bg-opacity-25 d-block py-2 px-3 w-100 shadow-sm`}>
                       <div className="row align-items-center w-100 g-0">

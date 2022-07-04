@@ -2,16 +2,15 @@
 @import "../../node_modules/bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
-$blue : #1A659E;
-$secondary : #424874;
-$green: #548C2F;
-$red: #E57C04;
-$yellow : #BD632F;
-$light : #9AA0A8;
-$dark : #1A1B25;
-$cyan : #FF751F;
+$blue : rgb(87, 36, 194);
+$secondary : rgb(182, 41, 212);
+$green: rgb(24, 168, 65);
+$red: rgb(235, 71, 71);
+$yellow : rgb(51, 51, 51);
+$light : rgb(26, 169, 178);
+$dark : rgb(153, 0, 0);
+$cyan : rgb(24, 133, 226);
 $white : #ffffff;
-
 
 @import "../../node_modules/bootstrap/scss/variables";
 
