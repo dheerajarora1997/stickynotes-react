@@ -59,7 +59,7 @@ export default function Landing() {
     }
   }
   const copyDeleteFunction = (e, index) => {
-    if (myState[index]?.data != '') {
+    if (myState[index]?.data !== '') {
       navigator.clipboard.writeText(myState[index].data);
       refTextArea.current[index].current.select();
       refcopyButton.current[index].current.textContent = 'Copied !';
@@ -132,7 +132,7 @@ export default function Landing() {
             </div>
             <div className="col-12 col-sm-8 text-end">
               <button className="btn bg-primary bg-opacity-75 text-white" onClick={exportData}>Export Data</button>
-              <a href="https://www.linkedin.com/in/dheerajarora1997/" target="_blank" className={`btn bg-primary bg-opacity-75 text-white ms-2`}>
+              <a href="https://www.linkedin.com/in/dheerajarora1997/" target="_blank" className={`btn bg-primary bg-opacity-75 text-white ms-2`} rel="noreferrer">
                 Dheeraj Arora <small className="material-icons"> launch </small>
               </a>
             </div>
@@ -151,7 +151,7 @@ export default function Landing() {
               <button className={`d-none d-md-block w-100 h-100 text-primary bg-primary bg-opacity-25 border border-primary rounded position-relative shadow-sm sticky-card-empty text-decoration-none py-1`} onClick={addStickyNote}>
                 <div className="d-flex align-items-center justify-content-center">
                   <span className={`bg-primary bg-opacity-25 d-inline-block rounded-circle d-flex justify-content-center align-items-center me-2 fs-5`} style={{ width: '25px', height: '25px' }}>+</span>
-                  {myState == 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
+                  {myState === 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
                 </div>
               </button>
             </div>
@@ -174,7 +174,7 @@ export default function Landing() {
                         <div className="col-5 text-end">
                           <div className="sticky-options d-flex justify-content-end">
                             {
-                              <button type="button" className={`small nowrap py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-0 me-md-2 ${myState.length === 1 && element.data == '' ? 'd-none' : ''}`} onClick={(e) => { copyDeleteFunction(e, index) }} ref={refcopyButton.current[index]}>{element.data ? 'Copy' : 'Delete'}</button>
+                              <button type="button" className={`small nowrap py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-0 me-md-2 ${myState.length === 1 && element.data === '' ? 'd-none' : ''}`} onClick={(e) => { copyDeleteFunction(e, index) }} ref={refcopyButton.current[index]}>{element.data ? 'Copy' : 'Delete'}</button>
                             }
                             <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }}
                               onClick={(e) => { decreaseSize(e, index) }}
@@ -210,7 +210,7 @@ export default function Landing() {
                 <button className={`w-100 h-100 text-primary bg-primary bg-opacity-10 border border-primary rounded position-relative shadow-sm sticky-card-empty text-decoration-none py-2 mt-1`} onClick={addStickyNote}>
                   <div className="d-flex align-items-center justify-content-center">
                     <span className={`bg-primary bg-opacity-25 d-inline-block rounded-circle d-flex justify-content-center align-items-center me-2 fs-4`} style={{ width: '35px', height: '35px' }}>+</span>
-                    {myState == 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
+                    {myState === 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
                   </div>
                 </button>
               </div>
