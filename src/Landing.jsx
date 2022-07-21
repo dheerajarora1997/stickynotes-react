@@ -45,6 +45,8 @@ export default function Landing() {
   }
 
   let decreaseSize = (e, index) => {
+    let addedTooltip = document.getElementsByClassName('tooltip')
+    addedTooltip[0].remove();
     let oldContent = [...myState];
     if (oldContent[index].size > 4) {
       oldContent[index].size = oldContent[index].size - 2;
@@ -53,6 +55,8 @@ export default function Landing() {
   }
 
   let increaseSize = (e, index) => {
+    let addedTooltip = document.getElementsByClassName('tooltip')
+    addedTooltip[0].remove();
     let oldContent = [...myState];
     if (oldContent[index].size < 12) {
       oldContent[index].size = oldContent[index].size + 2;
@@ -186,11 +190,11 @@ export default function Landing() {
                             {
                               <button type="button" className={`small nowrap py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-0 me-md-2 ${myState.length === 1 && element.data === '' ? 'd-none' : ''}`} onClick={(e) => { copyDeleteFunction(e, index) }} ref={refcopyButton.current[index]}>{element.data ? 'Copy' : 'Delete'}</button>
                             }
-                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }} data-bs-toggle="tooltip" data-bs-placement="top" title="Decrease Size" onClick={(e) => { decreaseSize(e, index) }} disabled={element.size === 4 ? 'disabled' : ''}
+                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }} data-bs-toggle="tooltip" data-bs-container="body" data-bs-placement="top" title="Decrease Size" onClick={(e) => { decreaseSize(e, index) }} disabled={element.size === 4 ? 'disabled' : ''}
                             >
                               <span className={`material-icons-outlined flip-icon`}>start</span>
                             </button>
-                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center`} style={{ minHeight: '30px' }} data-bs-toggle="tooltip" data-bs-placement="top" title="Increase Size" onClick={(e) => { increaseSize(e, index) }}>
+                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center`} style={{ minHeight: '30px' }} data-bs-toggle="tooltip" data-bs-container="body" data-bs-placement="top" title="Increase Size" onClick={(e) => { increaseSize(e, index) }}>
                               <span className={`material-icons-outlined`}>start</span>
                             </button>
                           </div>
