@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ReactSortable } from "react-sortablejs";
+import bootstrap from 'bootstrap/dist/js/bootstrap'; 
 import 'material-icons';
 
 export default function Landing() {
@@ -28,7 +29,7 @@ export default function Landing() {
 
   const addStickyNote = (e) => {
     const newData = [...myState];
-    newData.push({ ...sampleData });
+    newData.unshift({ ...sampleData });
     setMyState(newData);
   }
 
@@ -120,6 +121,11 @@ export default function Landing() {
     link.click();
   };
 
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  });
+
   return (
     <>
       <div className={`navbar py-2 navbar-light bg-primary bg-opacity-25`}>
@@ -141,19 +147,23 @@ export default function Landing() {
       </div>
       <div className={`bg-primary bg-opacity-10 py-3 min-vh-100`}>
         <div className="container">
-          <div className="row align-items-center mb-2">
-            <div className="col-9">
-              <p className="my-2">
-                <strong>Note : </strong><span>Your entire data set will be kept in your browser local storage.</span>
+          <div className="row align-items-center mb-2 gx-0 px-2">
+            <div className="col-sm-12 col-md-9">
+              <p className="my-2 text-primary d-flex align-items-center">
+                <span className='bg-primary bg-opacity-10 p-2 rounded-circle d-inline-block me-2' style={{ width: '30px', height: '30px' }}>
+                  <span className="material-icons-outlined"> tips_and_updates </span>
+                </span>
+                <span>Your entire data set will be kept in your browser local storage.</span>
               </p>
             </div>
-            <div className={`col-3 text-end ${myState.length >= 9 ? 'd-none' : ''}`}>
-              <button className={`h-100 text-primary bg-primary bg-opacity-25 border border-primary rounded position-relative shadow-sm sticky-card-empty text-decoration-none py-1`} onClick={addStickyNote}>
+            <div className={`col-sm-12 col-md-3 text-md-end`}>
+              {myState.length < 9 ? <button type="button" className={`h-100 text-primary bg-primary bg-opacity-25 border border-primary rounded position-relative shadow-sm sticky-card-empty text-decoration-none py-1 w-100`} onClick={addStickyNote}>
                 <div className="d-flex align-items-center justify-content-center">
                   <span className={`bg-primary bg-opacity-25 d-inline-block rounded-circle d-flex justify-content-center align-items-center me-2 fs-5`} style={{ width: '25px', height: '25px' }}>+</span>
-                  {myState === 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
+                  <span className="d-block">Add New Note</span>
                 </div>
               </button>
+                : 'Only 9 Sticky Notes allowed!'}
             </div>
           </div>
           <ReactSortable className="row gx-0" list={myState} setList={setMyState} animation={200} handle=".dragHadle" >
@@ -196,23 +206,6 @@ export default function Landing() {
               )
             })}
           </ReactSortable>
-          <div className="row justify-content-center">
-            {myState.length >= 9 ?
-              <div className="col-12">
-                <div className={`alert alert-primary fade show`} role="alert">
-                  <strong>Note : </strong> Only 9 Sticky Notes allowed.
-                </div>
-              </div> :
-              <div className={`col-12 col-sm-6`}>
-                <button className={`w-100 h-100 text-primary bg-primary bg-opacity-10 border border-primary rounded position-relative shadow-sm sticky-card-empty text-decoration-none py-2 mt-1`} onClick={addStickyNote}>
-                  <div className="d-flex align-items-center justify-content-center">
-                    <span className={`bg-primary bg-opacity-25 d-inline-block rounded-circle d-flex justify-content-center align-items-center me-2 fs-4`} style={{ width: '35px', height: '35px' }}>+</span>
-                    {myState === 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
-                  </div>
-                </button>
-              </div>
-            }
-          </div>
         </div>
       </div>
     </>
