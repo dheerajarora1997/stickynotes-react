@@ -142,13 +142,13 @@ export default function Landing() {
       <div className={`bg-primary bg-opacity-10 py-3 min-vh-100`}>
         <div className="container">
           <div className="row align-items-center mb-2">
-            <div className="col-10">
+            <div className="col-9">
               <p className="my-2">
                 <strong>Note : </strong><span>Your entire data set will be kept in your browser local storage.</span>
               </p>
             </div>
-            <div className={`col-2 ${myState.length >= 9 ? 'd-none' : ''}`}>
-              <button className={`d-none d-md-block w-100 h-100 text-primary bg-primary bg-opacity-25 border border-primary rounded position-relative shadow-sm sticky-card-empty text-decoration-none py-1`} onClick={addStickyNote}>
+            <div className={`col-3 text-end ${myState.length >= 9 ? 'd-none' : ''}`}>
+              <button className={`h-100 text-primary bg-primary bg-opacity-25 border border-primary rounded position-relative shadow-sm sticky-card-empty text-decoration-none py-1`} onClick={addStickyNote}>
                 <div className="d-flex align-items-center justify-content-center">
                   <span className={`bg-primary bg-opacity-25 d-inline-block rounded-circle d-flex justify-content-center align-items-center me-2 fs-5`} style={{ width: '25px', height: '25px' }}>+</span>
                   {myState === 0 ? <span className="d-block">Create Sticky Note</span> : <span className="d-block">Add New Note</span>}
@@ -176,14 +176,11 @@ export default function Landing() {
                             {
                               <button type="button" className={`small nowrap py-1 px-2 bg-${element.color} bg-opacity-25 border-0 text-${element.color} rounded pointer me-0 me-md-2 ${myState.length === 1 && element.data === '' ? 'd-none' : ''}`} onClick={(e) => { copyDeleteFunction(e, index) }} ref={refcopyButton.current[index]}>{element.data ? 'Copy' : 'Delete'}</button>
                             }
-                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }}
-                              onClick={(e) => { decreaseSize(e, index) }}
-                              disabled={element.size === 4 ? 'disabled' : ''}
+                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center me-1`} style={{ minHeight: '30px' }} data-bs-toggle="tooltip" data-bs-placement="top" title="Decrease Size" onClick={(e) => { decreaseSize(e, index) }} disabled={element.size === 4 ? 'disabled' : ''}
                             >
                               <span className={`material-icons-outlined flip-icon`}>start</span>
                             </button>
-                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center`} style={{ minHeight: '30px' }}
-                              onClick={(e) => { increaseSize(e, index) }}>
+                            <button type="button" className={`bg-${element.color} bg-opacity-25 text-${element.color} border-0 py-0 px-2 rounded-circle d-md-flex d-none justify-content-center align-items-center`} style={{ minHeight: '30px' }} data-bs-toggle="tooltip" data-bs-placement="top" title="Increase Size" onClick={(e) => { increaseSize(e, index) }}>
                               <span className={`material-icons-outlined`}>start</span>
                             </button>
                           </div>
